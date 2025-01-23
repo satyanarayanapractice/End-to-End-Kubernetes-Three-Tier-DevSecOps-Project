@@ -69,7 +69,7 @@ pipeline {
         stage("ECR Image Pushing") {
             steps {
                 script {
-                  def password = sh(script: 'aws ecr get-login-password --region ${AWS_DEFAULT_REGION}', returnStdout: true).trim()
+                        def password = sh(script: 'aws ecr get-login-password --region ${AWS_DEFAULT_REGION}', returnStdout: true).trim()
                         sh "docker login --username AWS --password ${password} ${REPOSITORY_URI}"
                         sh 'docker tag ${AWS_ECR_REPO_NAME} ${REPOSITORY_URI}${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}'
                         sh 'docker push ${REPOSITORY_URI}${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}'
